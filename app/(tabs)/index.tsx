@@ -1,9 +1,9 @@
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 
 export default function QuizPage() {
     return (
         <View>
-            <Text>Hej!</Text>
+            <Text>Första Tab!</Text>
         </View>
     );
 }
