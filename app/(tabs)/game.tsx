@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Colors } from '../constants/colors';
-import { Typography } from '../constants/typography';
+import { Gameboard } from '../components/gameboard';
 
-export default function ModePage() {
+export default function QuizPage() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Quiz Settings</Text>
+            <Gameboard/>
         </View>
     );
 }
@@ -17,9 +17,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     gap: 30,
-  },
-  title: {
-    fontSize: Typography.fsTitle,
-    color: Colors.light,
   },
 });

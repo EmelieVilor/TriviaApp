@@ -1,30 +1,43 @@
 import { Tabs } from 'expo-router';
+import { Colors } from '../constants/colors';
 
 export default function Tablayout() {
   return (
     <Tabs
   screenOptions={{
-    tabBarActiveTintColor: '#ffd33d',
-    headerStyle: {
-      backgroundColor: '#25292e',
-    },
-    headerShadowVisible: false,
-    headerTintColor: '#fff',
+    tabBarActiveTintColor: Colors.secondary,
+    tabBarInactiveTintColor: Colors.purple,
+    headerShown: false,
+    headerTintColor: Colors.light,
     tabBarStyle: {
-      backgroundColor: '#25292e',
+      backgroundColor: Colors.primary,
+      borderTopWidth: 0,
     },
   }}
 >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Cats"
+          title: "Play Mode"
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="game"
         options={{
-          title: "More Cats"
+          title: "Game",
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="mode"
+        options={{
+          title: "Mode"
+        }}
+      />
+       <Tabs.Screen
+        name="score"
+        options={{
+          title: "Score"
         }}
       />
     </Tabs>
