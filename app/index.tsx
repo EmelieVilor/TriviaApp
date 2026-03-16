@@ -2,55 +2,76 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  TextInput,
+  Image,
+  ActivityIndicator,
 } from "react-native";
 
-import { Colors } from './constants/colors';
-import { Typography } from './constants/typography';
+import { LinearGradient } from "expo-linear-gradient";
 
-import { useRouter } from 'expo-router';
+import { Colors } from "./constants/colors";
+import { Typography } from "./constants/typography";
+import { PrimaryButton } from "./components/button";
+
+import { useRouter } from "expo-router";
+import { useState } from "react";
 
 export default function StartPage() {
-const router = useRouter();
+  const router = useRouter();
+  const [nameInput, setNameInput] = useState("Your Name...");
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Trivia App</Text>
-      <Text style={styles.subTitle}>Test your knowledge! Are you ready?</Text>
-      <TouchableOpacity onPress={() => router.push('/(tabs)')} style={styles.startBtn}>
-        <Text style={styles.startText}>Start Quizzing</Text>
-      </TouchableOpacity>
+      <LinearGradient
+        colors={[Colors.purple, Colors.primary]}
+        style={styles.background}
+      />
+      <Image
+        style={styles.logo}
+        source={require("../assets/images/logo.png")}
+      />
+      <Text style={Typography.title}>Triviatastic</Text>
+      <Text style={Typography.subTitle}>
+        Test your knowledge! Are you ready?
+      </Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={setNameInput}
+        value={nameInput}
+      />
+      <PrimaryButton
+        title="Start Quizzing"
+        onPress={() => router.push("/(tabs)/start")}
+      />
+      <ActivityIndicator size="large" color={Colors.purple} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-    backgroundColor: Colors.primary,
-    alignItems: 'center',
+  container: {
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     gap: 25,
   },
-  title: {
-    color: Colors.light,
-    fontSize: Typography.fsTitle,
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%",
   },
-    subTitle: {
-    color: Colors.light,
-    fontSize: Typography.fsSubtitle,
-    textAlign: 'center',
+  logo: {
+    height: 100,
+    width: 100,
   },
-    startBtn: {
-    backgroundColor: Colors.secondary,
-    padding: 20,
-    width: 150,
-    borderRadius: 50,
-    boxShadow: `5px 7px 0px ${Colors.darkPurple}`,
+  input: {
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: Colors.purple,
+    backgroundColor: Colors.light,
+    padding: 15,
+    width: 220,
   },
-  startText: {
-    color: Colors.primary,
-    textAlign: 'center',
-    fontSize: Typography.fsBody,
-  }
 });

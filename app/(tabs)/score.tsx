@@ -1,12 +1,12 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
+import { Highscore } from '../components/highscore';
 
 export default function ScorePage() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>All Time Highscore</Text>
-            <Text style={styles.scores}>Emelie: 20 points</Text>
+            <Highscore/>
         </View>
     );
 }

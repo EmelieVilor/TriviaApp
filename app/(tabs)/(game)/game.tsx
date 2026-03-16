@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
-import { Colors } from '../constants/colors';
-import { Gameboard } from '../components/gameboard';
+import { Colors } from '../../constants/colors';
+import { Gameboard } from '../../components/gameboard';
 
 export default function QuizPage() {
     return (

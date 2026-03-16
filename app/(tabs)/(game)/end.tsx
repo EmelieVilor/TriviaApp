@@ -1,11 +1,11 @@
 import { View, StyleSheet } from "react-native";
-import { Colors } from '../constants/colors';
-import { Category } from '../components/categories';
+import { Colors } from '../../constants/colors';
+import { GameEnded } from '../../components/gameend';
 
-export default function QuizPage() {
+export default function EndPage() {
     return (
         <View style={styles.container}>
-            <Category/>
+            <GameEnded/>
         </View>
     );
 }
@@ -16,5 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-  },
+    gap: 30,
+  }
 });

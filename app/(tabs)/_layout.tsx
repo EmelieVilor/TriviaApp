@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Colors } from '../constants/colors';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function Tablayout() {
   return (
@@ -8,7 +9,6 @@ export default function Tablayout() {
     tabBarActiveTintColor: Colors.secondary,
     tabBarInactiveTintColor: Colors.purple,
     headerShown: false,
-    headerTintColor: Colors.light,
     tabBarStyle: {
       backgroundColor: Colors.primary,
       borderTopWidth: 0,
@@ -16,28 +16,27 @@ export default function Tablayout() {
   }}
 >
       <Tabs.Screen
-        name="index"
-        options={{
-          title: "Play Mode"
-        }}
-      />
-      <Tabs.Screen
-        name="game"
+        name="(game)"
         options={{
           title: "Game",
-          href: null,
+          tabBarIcon: ({ color, focused }) => (
+            <MaterialCommunityIcons 
+            name={focused ? "lightbulb-on" : "lightbulb-outline"}
+            size={24} 
+            color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="mode"
-        options={{
-          title: "Mode"
-        }}
-      />
-       <Tabs.Screen
         name="score"
         options={{
-          title: "Score"
+          title: "Highscore",
+          tabBarIcon: ({ color, focused }) => (
+            <MaterialCommunityIcons
+            name={focused ? "crown" : "crown-outline"}
+            size={24}
+            color={color}/>
+          )
         }}
       />
     </Tabs>
