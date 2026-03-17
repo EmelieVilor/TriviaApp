@@ -3,6 +3,6 @@ export const Colors = {
   secondary: "#ffce3b", // Gul
   purple: "#6752a1",
   shadow: "#1c113b",
-  light: "#e5e5e5",
+  light: "#eeeeee",
   dark: "#251c3b",
 };

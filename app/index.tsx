@@ -12,6 +12,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "./constants/colors";
 import { Typography } from "./constants/typography";
 import { PrimaryButton } from "./components/button";
+import { InfoButton } from "./components/infobutton";
+import Quiz  from "./api/apiCalls";
 
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -19,6 +21,7 @@ import { useState } from "react";
 export default function StartPage() {
   const router = useRouter();
   const [nameInput, setNameInput] = useState("Your Name...");
+
 
   return (
     <View style={styles.container}>
@@ -31,9 +34,12 @@ export default function StartPage() {
         source={require("../assets/images/logo.png")}
       />
       <Text style={Typography.title}>Triviatastic</Text>
+      <View style={styles.rules}>
       <Text style={Typography.subTitle}>
-        Test your knowledge! Are you ready?
+        Read the rules or maybe don't:
       </Text>
+      <InfoButton/>
+      </View>
       <TextInput
         style={styles.input}
         onChangeText={setNameInput}
@@ -43,7 +49,8 @@ export default function StartPage() {
         title="Start Quizzing"
         onPress={() => router.push("/(tabs)/start")}
       />
-      <ActivityIndicator size="large" color={Colors.purple} />
+      {/* <ActivityIndicator size="large" color={Colors.light} /> */}
+      <Quiz></Quiz>
     </View>
   );
 }
@@ -74,4 +81,9 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 220,
   },
+  rules: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 15,
+  }
 });

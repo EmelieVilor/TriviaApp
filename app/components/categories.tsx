@@ -12,14 +12,18 @@ export function Category() {
   return (
     <View>
       <View style={styles.container}>
-        <Text style={Typography.subTitle}>
-          Pick your category:
-        </Text>
+        <Text style={Typography.subTitle}>Pick your category:</Text>
         <View style={styles.categoryList}>
-          <PrimaryButton title="Science" onPress={() => router.push("/game")}/>
-            <PrimaryButton title="Geography" onPress={() => router.push("/game")}/>
-                <PrimaryButton title="Movies & Theatre" onPress={() => router.push("/game")}/>
-                    <PrimaryButton title="Mixed" onPress={() => router.push("/game")}/>
+          <PrimaryButton title="Science" onPress={() => router.push("/game")} />
+          <PrimaryButton
+            title="Geography"
+            onPress={() => router.push("/game")}
+          />
+          <PrimaryButton
+            title="Movies & Theatre"
+            onPress={() => router.push("/game")}
+          />
+          <PrimaryButton title="Mixed" onPress={() => router.push("/game")} />
         </View>
       </View>
     </View>
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.purple,
     borderRadius: 20,
-    padding: 20,
+    padding: 30,
     gap: 30,
   },
   categoryList: {

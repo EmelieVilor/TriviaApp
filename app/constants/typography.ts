@@ -1,6 +1,9 @@
 import { Colors } from "./colors";
 import { TextStyle } from "react-native";
 
+
+//Interface för att title, subtitle och body ska fungera med TextStyle
+
 interface TypographyInterface {
   fsTitle: number,
   fsSubtitle: number,

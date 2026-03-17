@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
@@ -6,13 +6,24 @@ import { useRouter } from "expo-router";
 import { PrimaryButton } from "./button";
 
 export function Gameboard() {
-  // const [question, setQuestion] = useState('');
+  const [count, setCount] = useState<number>(15);
   const router = useRouter();
+
+  useEffect(() => { // counter som ska stoppa spel och räkna poäng. 
+    const interval = setInterval(() => {
+      setCount((prevCount) => {
+        if (prevCount <= 1) {
+          clearInterval(interval);
+        }
+        return prevCount - 1;
+      });
+    }, 1000);
+  }, []);
 
   return (
     <View style={styles.view}>
       <View style={styles.counter}>
-        <Text style={styles.counterText}>60</Text>
+        <Text style={styles.counterText}>{count}</Text>
       </View>
       <View style={styles.container}>
         <Text style={Typography.title}>Category</Text>
