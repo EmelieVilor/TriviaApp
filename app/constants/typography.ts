@@ -14,12 +14,12 @@ interface TypographyInterface {
 }
 
 export const Typography: TypographyInterface = {
-  fsTitle: 32,
-  fsSubtitle: 18,
-  fsBody: 14,
+  fsTitle: 26,
+  fsSubtitle: 17,
+  fsBody: 15,
 
   title: {
-    fontSize: 30,
+    fontSize: 26,
     fontFamily: 'Courier',
     color: Colors.light,
     textAlign: 'center',

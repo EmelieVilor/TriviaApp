@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
 import { PrimaryButton } from "./button";
@@ -9,28 +9,68 @@ export function Category() {
   // const [category, setCategory] = useState('');
   const router = useRouter();
 
+  const handleSelect = (category: string, catTitle: string) => {
+    router.push({
+      pathname: "/game",
+      params: { category, catTitle },
+    });
+  };
+
   return (
-    <View>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <View style={styles.container}>
         <Text style={Typography.subTitle}>Pick your category:</Text>
         <View style={styles.categoryList}>
-          <PrimaryButton title="Science" onPress={() => router.push("/game")} />
+          <PrimaryButton 
+          title="Music" 
+          onPress={() => handleSelect("music", "Music")} />
           <PrimaryButton
+            title="Sport & Leisure"
+            onPress={() => handleSelect("sport_and_leisure", "Sport & Leisure")}
+          />
+          <PrimaryButton
+            title="Film & Tv"
+            onPress={() => handleSelect("film_and_tv", "Film & Tv")}
+          />
+           <PrimaryButton
+            title="Arts & Literature"
+            onPress={() => handleSelect("arts_and_literature","Arts & Literature")}
+          />
+           <PrimaryButton
+            title="History"
+            onPress={() => handleSelect("history","History")}
+          />
+           <PrimaryButton
+            title="Society & Culture"
+            onPress={() => handleSelect("society_and_culture","Society & Culture")}
+          />
+           <PrimaryButton
+            title="Science"
+            onPress={() => handleSelect("science","Science")}
+          />
+           <PrimaryButton
             title="Geography"
-            onPress={() => router.push("/game")}
+            onPress={() => handleSelect("geography","Geography")}
           />
-          <PrimaryButton
-            title="Movies & Theatre"
-            onPress={() => router.push("/game")}
+           <PrimaryButton
+            title="Food & Drinks"
+            onPress={() => handleSelect("food_and_drink","Food & Drinks")}
           />
-          <PrimaryButton title="Mixed" onPress={() => router.push("/game")} />
+           <PrimaryButton
+            title="General Knowledge"
+            onPress={() => handleSelect("general_knowledge","General Knowledge")}
+          />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+    scrollContent: {
+        paddingTop: 70,
+        paddingBottom: 30,
+    },
   container: {
     backgroundColor: Colors.purple,
     borderRadius: 20,

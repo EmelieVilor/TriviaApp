@@ -50,7 +50,6 @@ export default function StartPage() {
         onPress={() => router.push("/(tabs)/start")}
       />
       {/* <ActivityIndicator size="large" color={Colors.light} /> */}
-      <Quiz></Quiz>
     </View>
   );
 }
