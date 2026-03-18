@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  ActivityIndicator,
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,7 +12,6 @@ import { Colors } from "./constants/colors";
 import { Typography } from "./constants/typography";
 import { PrimaryButton } from "./components/button";
 import { InfoButton } from "./components/infobutton";
-import Quiz  from "./api/apiCalls";
 
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -49,7 +47,6 @@ export default function StartPage() {
         title="Start Quizzing"
         onPress={() => router.push("/(tabs)/start")}
       />
-      {/* <ActivityIndicator size="large" color={Colors.light} /> */}
     </View>
   );
 }

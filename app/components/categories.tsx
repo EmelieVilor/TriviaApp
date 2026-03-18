@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
@@ -6,9 +5,9 @@ import { PrimaryButton } from "./button";
 import { useRouter } from "expo-router";
 
 export function Category() {
-  // const [category, setCategory] = useState('');
   const router = useRouter();
 
+  //hantering av val av kategori
   const handleSelect = (category: string, catTitle: string) => {
     router.push({
       pathname: "/game",
@@ -21,9 +20,12 @@ export function Category() {
       <View style={styles.container}>
         <Text style={Typography.subTitle}>Pick your category:</Text>
         <View style={styles.categoryList}>
-          <PrimaryButton 
-          title="Music" 
-          onPress={() => handleSelect("music", "Music")} />
+          {/* knappar för att välja kategori, och hur kategorin visas i rubriken på gameboard */}
+
+          <PrimaryButton
+            title="Music"
+            onPress={() => handleSelect("music", "Music")}
+          />
           <PrimaryButton
             title="Sport & Leisure"
             onPress={() => handleSelect("sport_and_leisure", "Sport & Leisure")}
@@ -32,33 +34,39 @@ export function Category() {
             title="Film & Tv"
             onPress={() => handleSelect("film_and_tv", "Film & Tv")}
           />
-           <PrimaryButton
+          <PrimaryButton
             title="Arts & Literature"
-            onPress={() => handleSelect("arts_and_literature","Arts & Literature")}
+            onPress={() =>
+              handleSelect("arts_and_literature", "Arts & Literature")
+            }
           />
-           <PrimaryButton
+          <PrimaryButton
             title="History"
-            onPress={() => handleSelect("history","History")}
+            onPress={() => handleSelect("history", "History")}
           />
-           <PrimaryButton
+          <PrimaryButton
             title="Society & Culture"
-            onPress={() => handleSelect("society_and_culture","Society & Culture")}
+            onPress={() =>
+              handleSelect("society_and_culture", "Society & Culture")
+            }
           />
-           <PrimaryButton
+          <PrimaryButton
             title="Science"
-            onPress={() => handleSelect("science","Science")}
+            onPress={() => handleSelect("science", "Science")}
           />
-           <PrimaryButton
+          <PrimaryButton
             title="Geography"
-            onPress={() => handleSelect("geography","Geography")}
+            onPress={() => handleSelect("geography", "Geography")}
           />
-           <PrimaryButton
+          <PrimaryButton
             title="Food & Drinks"
-            onPress={() => handleSelect("food_and_drink","Food & Drinks")}
+            onPress={() => handleSelect("food_and_drink", "Food & Drinks")}
           />
-           <PrimaryButton
+          <PrimaryButton
             title="General Knowledge"
-            onPress={() => handleSelect("general_knowledge","General Knowledge")}
+            onPress={() =>
+              handleSelect("general_knowledge", "General Knowledge")
+            }
           />
         </View>
       </View>
@@ -67,10 +75,10 @@ export function Category() {
 }
 
 const styles = StyleSheet.create({
-    scrollContent: {
-        paddingTop: 70,
-        paddingBottom: 30,
-    },
+  scrollContent: {
+    paddingTop: 70,
+    paddingBottom: 30,
+  },
   container: {
     backgroundColor: Colors.purple,
     borderRadius: 20,

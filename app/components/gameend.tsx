@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
 import { PrimaryButton } from "./button";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
 export function GameEnded() {
-const router = useRouter();
+  const router = useRouter();
   const { finalScore } = useLocalSearchParams();
 
   return (
@@ -16,7 +16,7 @@ const router = useRouter();
         source={require("../../assets/images/emoji.png")}
       />
       <Text style={Typography.subTitle}> Your points: {finalScore}</Text>
-        <PrimaryButton title="Retry!" onPress={() => router.push("/")}/>
+      <PrimaryButton title="Retry!" onPress={() => router.push("/")} />
     </View>
   );
 }
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 30,
   },
-    image: {
+  image: {
     height: 100,
     width: 100,
   },

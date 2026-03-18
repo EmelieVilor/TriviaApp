@@ -10,17 +10,22 @@ import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PrimaryButton } from "./button";
-import { Question } from "../api/apiCalls";
+import { Counter } from "./counter";
+import { Question } from "../api/questionInterface";
+import { fetchQuizData } from "../api/apiFetch";
+import { useCounter } from "../hooks/useCounter";
 
 export function Gameboard() {
   const router = useRouter();
   const { category, catTitle } = useLocalSearchParams();
-
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState<number>(0);
   const [score, setScore] = useState(0);
   const [loader, setLoader] = useState(false);
+  const [currentAnswers, setCurrentAnswers] = useState<string[]>([]);
+  const counter = useCounter(30);
 
+  //starta hämtningen av frågor från vald kategori via localsearchparams
   useEffect(() => {
     if (category) {
       startQuiz(category as string);
@@ -30,23 +35,11 @@ export function Gameboard() {
   const startQuiz = async (category: string) => {
     setLoader(true);
 
+    //hämtar 5 lätta, 5 medium, 10 svåra frågor
     try {
-      const easyRes = await fetch(
-        `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=easy&limit=5`,
-      );
-      const easy = await easyRes.json();
+      const data = await fetchQuizData(category);
 
-      const mediumRes = await fetch(
-        `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=medium&limit=5`,
-      );
-      const medium = await mediumRes.json();
-
-      const hardRes = await fetch(
-        `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=hard&limit=10`,
-      );
-      const hard = await hardRes.json();
-
-      setQuestions([...easy, ...medium, ...hard]);
+      setQuestions(data);
       setIndex(0);
       setScore(0);
     } catch (error) {
@@ -56,20 +49,30 @@ export function Gameboard() {
     }
   };
 
-  const handleAnswer = (selected: string) => {
+  //blanda svarsalternativen så att inte rätt svar är på första plats hela tiden. körs bara en gång vid ny fråga.
+  useEffect(() => {
+    if (questions[index]) {
+      const all = [
+        questions[index].correctAnswer,
+        ...questions[index].incorrectAnswers,
+      ];
+      setCurrentAnswers(all.sort(() => Math.random() - 0.5));
+    }
+  }, [index, questions]);
 
-    //säkerhetskontroll
+  // hantera svarsalternativen:
+  const handleAnswer = (selected: string) => {
+    //avbryt om frågor inte finns:
     if (!questions[index]) return;
 
+    // om rätt svar och fler frågor finns:
     const isCorrect = selected === questions[index].correctAnswer;
 
-      // Om rätt svar och fler frågor finns!!
-
-        if (isCorrect && index < questions.length - 1) {
+    if (isCorrect && index < questions.length - 1) {
       setIndex(index + 1);
       setScore(score + 1);
 
-      //Om man svarar fel eller rätt på sista frågan.
+      //om man svarar fel eller rätt på sista frågan.
     } else {
       const finalResult = isCorrect ? score + 1 : score;
 
@@ -80,7 +83,7 @@ export function Gameboard() {
     }
   };
 
-  // om sidan laddar visa snurran
+  // om sidan laddar, visa snurran
   if (loader || questions.length === 0) {
     return (
       <View style={styles.view}>
@@ -95,32 +98,27 @@ export function Gameboard() {
   return (
     <View style={styles.view}>
       {loader && <ActivityIndicator size="large" color={Colors.light} />}
-      <View style={styles.counter}>
-        <Text style={styles.counterText}>30</Text>
-      </View>
+      <Counter counter={counter} />
       <View style={styles.container}>
         <View style={styles.catContainer}>
-        <Text style={Typography.subTitle}>{catTitle}</Text>
+          <Text style={Typography.subTitle}>{catTitle}</Text>
         </View>
 
         <Text style={Typography.subTitle}>
           {questions[index].question.text}
         </Text>
+
+        {/* Printa ut alla fyra svarsalternativ blandade:  */}
         <View style={styles.answers}>
-          {[
-            questions[index].correctAnswer,
-            ...questions[index].incorrectAnswers,
-          ]
-            .sort(() => Math.random() - 0.5)
-            .map((answer, i) => (
-              <Pressable
-                key={i}
-                style={styles.answerBtn}
-                onPress={() => handleAnswer(answer)}
-              >
-                <Text style={Typography.body}>{answer}</Text>
-              </Pressable>
-            ))}
+          {currentAnswers.map((answer, i) => (
+            <Pressable
+              key={i}
+              style={styles.answerBtn}
+              onPress={() => handleAnswer(answer)}
+            >
+              <Text style={Typography.body}>{answer}</Text>
+            </Pressable>
+          ))}
         </View>
       </View>
       <PrimaryButton title="Quit Game" onPress={() => router.push("/")} />
@@ -134,19 +132,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     width: "100%",
-  },
-  counter: {
-    height: 100,
-    width: 100,
-    backgroundColor: Colors.purple,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 100,
-    marginBottom: 30,
-  },
-  counterText: {
-    fontSize: 55,
-    color: Colors.light,
   },
   container: {
     backgroundColor: Colors.purple,
@@ -163,8 +148,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 15,
     color: Colors.light,
-    textAlign: 'center',
+    textAlign: "center",
     borderRadius: 30,
+    marginBottom: 10,
   },
   answers: {
     backgroundColor: Colors.purple,
@@ -172,8 +158,7 @@ const styles = StyleSheet.create({
     gap: 15,
     flexDirection: "column",
     justifyContent: "center",
-    marginTop: 20,
-    width: '100%',
+    width: "100%",
   },
   answerBtn: {
     backgroundColor: Colors.primary,

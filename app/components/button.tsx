@@ -2,13 +2,8 @@ import { Pressable, View, StyleSheet, Text } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
 
-export function PrimaryButton({
-  title,
-  onPress,
-}: {
-  title: string;
-  onPress: () => void;
-}) {
+export function PrimaryButton({title, onPress}: {title: string, onPress: () => void}) {
+  
   return (
     <View>
       <Pressable style={styles.button} onPress={onPress}>
