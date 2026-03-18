@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { View, StyleSheet, Text, Pressable, ActivityIndicator } from "react-native";
 import { Colors } from "../constants/colors";
 import { Typography } from "../constants/typography";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -17,13 +11,19 @@ import { useCounter } from "../hooks/useCounter";
 
 export function Gameboard() {
   const router = useRouter();
+
+  //hämtar kategorin och titel från handleSelect(val av kategori)
   const { category, catTitle } = useLocalSearchParams();
+
+  //hämtar countern från useCounter egen hook
+  const counter = useCounter(30);
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState<number>(0);
   const [score, setScore] = useState(0);
   const [loader, setLoader] = useState(false);
   const [currentAnswers, setCurrentAnswers] = useState<string[]>([]);
-  const counter = useCounter(30);
+
 
   //starta hämtningen av frågor från vald kategori via localsearchparams
   useEffect(() => {
@@ -109,9 +109,9 @@ export function Gameboard() {
 
         {/* Printa ut alla fyra svarsalternativ blandade:  */}
         <View style={styles.answers}>
-          {currentAnswers.map((answer, i) => (
+          {currentAnswers.map((answer, index) => (
             <Pressable
-              key={i}
+              key={index}
               style={styles.answerBtn}
               onPress={() => handleAnswer(answer)}
             >
