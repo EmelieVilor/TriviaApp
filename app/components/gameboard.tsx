@@ -35,7 +35,7 @@ export function Gameboard() {
   const startQuiz = async (category: string) => {
     setLoader(true);
 
-    //hämtar 5 lätta, 5 medium, 10 svåra frågor
+    //hämtar 5 lätta, 5 medium, 10 svåra frågor från fetchQuizData
     try {
       const data = await fetchQuizData(category);
 
@@ -88,7 +88,7 @@ export function Gameboard() {
     return (
       <View style={styles.view}>
         <ActivityIndicator size="large" color={Colors.light} />
-        <Text style={{ color: "white", textAlign: "center", marginTop: 10 }}>
+        <Text style={{ color: "white", textAlign: "center", marginTop: 15 }}>
           Loading questions...
         </Text>
       </View>
@@ -97,7 +97,6 @@ export function Gameboard() {
 
   return (
     <View style={styles.view}>
-      {loader && <ActivityIndicator size="large" color={Colors.light} />}
       <Counter counter={counter} />
       <View style={styles.container}>
         <View style={styles.catContainer}>

@@ -16,8 +16,7 @@ export function InfoButton() {
           <View style={styles.modalView}>
             <Text style={styles.modalTitle}>Rules of the game:</Text>
             <Text style={styles.modalText}>
-              Enter your name, and start quizzing. Pick a category. Make sure to
-              answer correctly to score points, and prove that you're the
+              Enter your name, and start quizzing. Pick your favorite category, answer the questions and score points. Compete for the highscore and prove that you're the
               ultimate quiz master!
             </Text>
             <PrimaryButton

@@ -20,6 +20,7 @@ export function Category() {
       <View style={styles.container}>
         <Text style={Typography.subTitle}>Pick your category:</Text>
         <View style={styles.categoryList}>
+          
           {/* knappar för att välja kategori, och hur kategorin visas i rubriken på gameboard */}
 
           <PrimaryButton
