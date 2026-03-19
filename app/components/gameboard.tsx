@@ -15,14 +15,14 @@ export function Gameboard() {
   //hämtar kategorin och titel från handleSelect(val av kategori)
   const { category, catTitle } = useLocalSearchParams();
 
-  //hämtar countern från useCounter egen hook
-  const counter = useCounter(30);
-
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState<number>(0);
   const [score, setScore] = useState(0);
   const [loader, setLoader] = useState(false);
   const [currentAnswers, setCurrentAnswers] = useState<string[]>([]);
+
+    //hämtar countern från useCounter egen hook
+  const counter = useCounter(30, index);
 
 
   //starta hämtningen av frågor från vald kategori via localsearchparams
@@ -60,12 +60,20 @@ export function Gameboard() {
     }
   }, [index, questions]);
 
-  // hantera svarsalternativen:
+  //när spelet är slut, skicka till endscreen
+  const endGame = (finalResult: number) => {
+    router.push({
+      pathname: "/end",
+      params: { finalScore: finalResult}
+    });
+  };
+
+  // hantera svarsalternativen
   const handleAnswer = (selected: string) => {
     //avbryt om frågor inte finns:
     if (!questions[index]) return;
 
-    // om rätt svar och fler frågor finns:
+    // om rätt svar och fler frågor finns, annars skicka till endscreen.
     const isCorrect = selected === questions[index].correctAnswer;
 
     if (isCorrect && index < questions.length - 1) {
@@ -75,13 +83,17 @@ export function Gameboard() {
       //om man svarar fel eller rätt på sista frågan.
     } else {
       const finalResult = isCorrect ? score + 1 : score;
-
-      router.push({
-        pathname: "/end",
-        params: { finalScore: finalResult },
-      });
+      endGame(finalResult);
     }
   };
+
+  //avbryt om counter är noll (och att vi faktiskt har startat frågorna/spelet) och reset om ny fråga
+
+  useEffect(() => {
+    if (counter === 0 && questions.length) {
+      endGame(score);
+    }
+  },[counter, questions.length]);
 
   // om sidan laddar, visa snurran
   if (loader || questions.length === 0) {

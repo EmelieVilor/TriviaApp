@@ -1,25 +1,15 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Image,
-} from "react-native";
-
+import { Text, View, StyleSheet, TextInput, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
 import { Colors } from "./constants/colors";
 import { Typography } from "./constants/typography";
 import { PrimaryButton } from "./components/button";
 import { InfoButton } from "./components/infobutton";
-
 import { useRouter } from "expo-router";
 import { useState } from "react";
 
 export default function StartPage() {
   const router = useRouter();
   const [nameInput, setNameInput] = useState("Your Name...");
-
 
   return (
     <View style={styles.container}>
